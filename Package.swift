@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "Ztils",
+    platforms: [
+        .macOS(.v12), .iOS(.v13), .tvOS(.v13)
+    ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
@@ -21,8 +24,5 @@ let package = Package(
         .target(
             name: "Ztils",
             dependencies: []),
-        .testTarget(
-            name: "ZtilsTests",
-            dependencies: ["Ztils"]),
     ]
 )
