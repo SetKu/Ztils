@@ -8,5 +8,5 @@
 import Foundation
 
 extension Date {
-    static var weekFromNow: Date { Date.now.addingTimeInterval(7 * 24 * 60 * 60) }
+    static var weekFromNow: Date { Date().addingTimeInterval(7 * 24 * 60 * 60) }
 }

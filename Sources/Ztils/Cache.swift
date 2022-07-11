@@ -41,7 +41,7 @@ public extension Cache {
         
         public override var hash: Int { return key.hashValue }
         
-        public override func isEqual(to object: Any?) -> Bool {
+        public override func isEqual(_ object: Any?) -> Bool {
             guard let value = object as? WrappedKey else { return false }
             return value.key == key
         }
