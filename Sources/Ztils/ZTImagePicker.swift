@@ -14,6 +14,15 @@ import PhotosUI
 public struct ZTImagePicker: UIViewControllerRepresentable {
     @Binding var image: UIImage?
     
+    public init(image: Binding<UIImage?>? = nil) {
+        if let image {
+            self._image = image
+            return
+        }
+        
+        self._image = .constant(nil)
+    }
+    
     public func makeUIViewController(context: Context) -> some UIViewController {
         var config = PHPickerConfiguration()
         config.selectionLimit = 1
