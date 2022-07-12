@@ -77,6 +77,10 @@ public struct ZTScrollView<Content: View>: View {
 struct ZMScrollView_Previews: PreviewProvider {
     static var previews: some View {
         ZTScrollView { offset in
+            Rectangle()
+                .frame(width: 100, height: 100)
+                .padding()
+            
             Text("Hello! \(offset)")
         }
     }
