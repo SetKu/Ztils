@@ -52,9 +52,10 @@ public struct ZTImagePicker: UIViewControllerRepresentable {
             
             if provider.canLoadObject(ofClass: UIImage.self) {
                 provider.loadObject(ofClass: UIImage.self) { success, error in
-                    if let error {
-                        fatalError((error as NSError).localizedDescription)
-                    }
+                    // There is a common error in the iOS simulator where the image with the pink flowers will cause a crash. This is a problem with the simulator, and production code is not supposed to fail this way. This error has been disabled for this reason.
+//                    if let error {
+//                        fatalError((error as NSError).localizedDescription)
+//                    }
                     
                     self.parent.image = success as? UIImage
                 }
