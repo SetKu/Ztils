@@ -1,5 +1,5 @@
 //
-//  ZMScrollView.swift
+//  ZTScrollView.swift
 //  Ztils
 //
 //  Created by Zachary Morden on 2022-07-12.
@@ -11,24 +11,20 @@
 #if canImport(SwiftUI)
 import SwiftUI
 
-struct ZMScrollPreferenceKey: PreferenceKey {
+private struct ZTScrollPreferenceKey: PreferenceKey {
     static var defaultValue: CGFloat = 0
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = nextValue()
     }
 }
 
-struct ZMScrollView<Content: View>: View {
-    let axes: Axis.Set
-    let showsIndicators: Bool
-    let content: (CGFloat) -> Content
-    private let offsetBinding: (Binding<CGFloat>)?
+public struct ZTScrollView<Content: View>: View {
+    private let axes: Axis.Set
+    private let showsIndicators: Bool
+    private let content: (CGFloat) -> Content
     
-    @State private var offset = ZMScrollPreferenceKey.defaultValue {
-        didSet {
-            offsetBinding?.wrappedValue = offset
-        }
-    }
+    @State private var offset = ZTScrollPreferenceKey.defaultValue
+    @Binding private var offsetBinding: CGFloat
     
     init(
         axes: Axis.Set = .vertical,
@@ -39,23 +35,32 @@ struct ZMScrollView<Content: View>: View {
         self.axes = axes
         self.showsIndicators = showsIndicators
         self.content = content
-        self.offsetBinding = contentOffset
+        
+        if let contentOffset {
+            self._offsetBinding = contentOffset
+            return
+        }
+        
+        self._offsetBinding = .constant(0)
     }
     
-    var body: some View {
+    public var body: some View {
         GeometryReader { outsideGeo in
             ScrollView(axes, showsIndicators: showsIndicators) {
                 GeometryReader { insideGeo in
                     let offset = calculateOffset(outside: outsideGeo, inside: insideGeo)
                     
                     Color.clear
-                        .preference(key: ZMScrollPreferenceKey.self, value: offset)
+                        .preference(key: ZTScrollPreferenceKey.self, value: offset)
                 }
                 
-                content(offset)
+                VStack {
+                    content(offset)
+                }
             }
-            .onPreferenceChange(ZMScrollPreferenceKey.self) {
+            .onPreferenceChange(ZTScrollPreferenceKey.self) {
                 offset = $0
+                offsetBinding = offset
             }
         }
     }
@@ -71,7 +76,7 @@ struct ZMScrollView<Content: View>: View {
 
 struct ZMScrollView_Previews: PreviewProvider {
     static var previews: some View {
-        ZMScrollView { offset in
+        ZTScrollView { offset in
             Text("Hello! \(offset)")
         }
     }
