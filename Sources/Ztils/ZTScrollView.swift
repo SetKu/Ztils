@@ -61,15 +61,11 @@ struct ZMScrollView<Content: View>: View {
     }
     
     private func calculateOffset(outside: GeometryProxy, inside: GeometryProxy) -> CGFloat {
-        let base: CGFloat
-        
         if axes == .vertical {
-            base = outside.frame(in: .global).minY - inside.frame(in: .global).minY
-        } else {
-            base = outside.frame(in: .global).minX - inside.frame(in: .global).minX
+            return outside.frame(in: .global).minY - inside.frame(in: .global).minY
         }
         
-        return base * -1
+        return outside.frame(in: .global).minX - inside.frame(in: .global).minX
     }
 }
 
