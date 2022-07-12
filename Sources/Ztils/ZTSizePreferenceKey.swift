@@ -1,5 +1,5 @@
 //
-//  SizePreferenceKey.swift
+//  ZTSizePreferenceKey.swift
 //  Ztils
 //
 //  Created by Zachary Morden on 2022-07-06.
@@ -12,7 +12,7 @@
 import SwiftUI
 
 /// A preference key that corresponds to a `CGSize` and combines by adding.
-struct SizePreferenceKey: PreferenceKey {
+struct ZTSizePreferenceKey: PreferenceKey {
     static var defaultValue = CGSize.zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
         value = CGSize(width: value.width + nextValue().width, height: value.height + nextValue().height)

@@ -19,10 +19,10 @@ extension View {
             .background(
                 GeometryReader { geo in
                     Color.clear
-                        .preference(key: SizePreferenceKey.self, value: geo.size)
+                        .preference(key: ZTSizePreferenceKey.self, value: geo.size)
                 }
             )
-            .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
+            .onPreferenceChange(ZTSizePreferenceKey.self, perform: onChange)
     }
 }
 #endif

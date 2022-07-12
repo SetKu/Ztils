@@ -9,7 +9,7 @@
 import SwiftUI
 
 /// A view capable of finding the parent UIWindow for a SwiftUI view.
-public struct HostingWindowFinder: UIViewRepresentable {
+public struct ZTHostingWindowFinder: UIViewRepresentable {
     /// The callback that will be called when the view's window is (or is not) found.
     var callback: (UIWindow?) -> ()
     

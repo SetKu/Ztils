@@ -1,6 +1,6 @@
 //
-//  Cache.swift
-//  
+//  ZTCache.swift
+//  Ztils
 //
 //  Created by Zachary Morden on 2022-07-10.
 //
@@ -13,7 +13,7 @@
 import Foundation
 
 /// A wrapper for NSCache created by John Sundell enabling data persistence and system adaptations, such as low-memory evictions.
-public final class Cache<Key: Hashable, Value> {
+public final class ZTCache<Key: Hashable, Value> {
     private let wrapped = NSCache<WrappedKey, Entry>()
     private let dateProvider: () -> Date
     private let entryLifetime: TimeInterval
@@ -31,7 +31,7 @@ public final class Cache<Key: Hashable, Value> {
     }
 }
 
-public extension Cache {
+public extension ZTCache {
     final class WrappedKey: NSObject {
         let key: Key
         
@@ -60,7 +60,7 @@ public extension Cache {
     }
 }
 
-private extension Cache {
+private extension ZTCache {
     /// Finds the latest entry corresponding to the provided key.
     /// - Parameter key: The key to query for an entry for in the cache.
     /// - Returns: The latest entry for the provided key, if it exists.
@@ -78,12 +78,12 @@ private extension Cache {
         return entry
     }
     
-    func insert(_ entry: Cache.Entry) {
+    func insert(_ entry: ZTCache.Entry) {
         self.insert(entry.value, forKey: entry.key)
     }
 }
 
-public extension Cache {
+public extension ZTCache {
     /// Sets the value for the key within the cache.
     ///
     /// The value can be removed by using the `removeValue(forKey:) method.`
@@ -125,8 +125,8 @@ public extension Cache {
     }
 }
 
-private extension Cache {
-    /// An object that keeps track of all the keys for the current `Cache` object and acts as the wrapped `NSCache` delegate.
+private extension ZTCache {
+    /// An object that keeps track of all the keys for the current `ZTCache` object and acts as the wrapped `NSCache` delegate.
     final class KeyTracker: NSObject, NSCacheDelegate {
         var keys = Set<Key>()
         
@@ -140,9 +140,9 @@ private extension Cache {
     }
 }
 
-extension Cache.Entry: Codable where Key: Codable, Value: Codable { }
+extension ZTCache.Entry: Codable where Key: Codable, Value: Codable { }
 
-extension Cache: Codable where Key: Codable, Value: Codable {
+extension ZTCache: Codable where Key: Codable, Value: Codable {
     convenience public init(from decoder: Decoder) throws {
         self.init()
         
@@ -157,7 +157,7 @@ extension Cache: Codable where Key: Codable, Value: Codable {
     }
 }
 
-extension Cache where Key: Codable, Value: Codable {
+extension ZTCache where Key: Codable, Value: Codable {
     func saveToDisk(
         withName name: String,
         using fileManager: FileManager = .default

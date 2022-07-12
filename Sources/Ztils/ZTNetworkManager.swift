@@ -8,7 +8,7 @@
 import Foundation
 
 /// A container class for quickly working with asynchronous data requests.
-public class NetworkManager {
+public class ZTNetworkManager {
     /// Decodes the JSON provided from a URL to a specified type whilst providing safety checks (i.e. server response codes).
     /// - Parameters:
     ///   - type: The type to decode the JSON from the server to.

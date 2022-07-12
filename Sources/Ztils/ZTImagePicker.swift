@@ -11,7 +11,7 @@ import PhotosUI
 
 /// A wrapper for Photo Kit's `PHPickerViewController` enabling retrieval of a UIImage from a user's library without privacy access needed.
 @available(iOS 14.0, *)
-public struct ImagePicker: UIViewControllerRepresentable {
+public struct ZTImagePicker: UIViewControllerRepresentable {
     @Binding var image: UIImage?
     
     public func makeUIViewController(context: Context) -> some UIViewController {
@@ -30,9 +30,9 @@ public struct ImagePicker: UIViewControllerRepresentable {
     }
     
     final public class Coordinator: NSObject, PHPickerViewControllerDelegate {
-        let parent: ImagePicker
+        let parent: ZTImagePicker
         
-        init(_ parent: ImagePicker) {
+        init(_ parent: ZTImagePicker) {
             self.parent = parent
         }
         
@@ -55,9 +55,9 @@ public struct ImagePicker: UIViewControllerRepresentable {
 }
 
 @available(iOS 14.0, *)
-struct ImagePicker_Previews: PreviewProvider {
+struct ZTImagePicker_Previews: PreviewProvider {
     static var previews: some View {
-        ImagePicker(image: .constant(nil))
+        ZTImagePicker(image: .constant(nil))
     }
 }
 #endif
