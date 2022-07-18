@@ -39,23 +39,41 @@ public class ZTNetworkManager {
         return decoded
     }
     
+    @available(iOS 15.0, *)
+    private final class ZTPingDelegate: NSObject, URLSessionTaskDelegate {
+        var metrics = [URLSessionTaskMetrics]()
+        
+        func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics) {
+            self.metrics.append(metrics)
+        }
+    }
+    
     /// Pings the specified URL to check whether it exists.
     /// - Parameter urlString: The URL for the resource to ping as a string.
     /// - Returns: The time the request took to finish and validate.
-    /// - Throws: The ping request will fail if the URL provided is invalid or if the ping request failed.
+    /// - Throws: The ping request will fail if the URL provided is invalid or the ping request failed.
+    @available(iOS 15.0, *)
     public static func ping(url urlString: String) async throws -> TimeInterval {
-        let start = Date()
-        
         guard let url = URL(string: urlString) else { throw URLError(.badURL) }
         var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData)
         request.httpMethod = "HEAD"
         
-        let (_, response) = try await URLSession.shared.data(for: request)
+        let sessionConfiguration = URLSessionConfiguration.default
+        sessionConfiguration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        let session = URLSession(configuration: sessionConfiguration)
         
+        let delegate = ZTPingDelegate()
+        let (_, response) = try await session.data(for: request, delegate: delegate)
+
         try validate(response: response)
         
-        let after = Date()
-        return start.timeIntervalSince(after)
+        let metric = delegate.metrics.first!
+        let transactionMetrics = metric.transactionMetrics.first!
+        
+        let start = transactionMetrics.fetchStartDate!
+        let end = transactionMetrics.responseStartDate!
+        
+        return end.timeIntervalSince(start)
     }
     
     /// Checks that the provided URL response is a valid response code of 200 (OK).
