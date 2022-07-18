@@ -21,7 +21,7 @@ public struct ZTSpacifier<Content: View>: View {
         self.content = content
     }
     
-    var body: some View {
+    public var body: some View {
         HStack {
             if place == .leading || place == .both {
                 Spacer()
