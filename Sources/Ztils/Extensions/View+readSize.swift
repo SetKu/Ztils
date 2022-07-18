@@ -11,7 +11,7 @@
 #if canImport(SwiftUI)
 import SwiftUI
 
-extension View {
+public extension View {
     /// Retrieves the size of the view.
     /// - Parameter onChange: The closure to execute when the size is retrieved.
     func readSize(_ onChange: @escaping (CGSize) -> Void) -> some View {

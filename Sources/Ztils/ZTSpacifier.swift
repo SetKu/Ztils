@@ -8,7 +8,7 @@
 #if canImport(SwiftUI)
 import SwiftUI
 
-struct ZTSpacifier<Content: View>: View {
+public struct ZTSpacifier<Content: View>: View {
     enum Places {
         case leading, trailing, both
     }

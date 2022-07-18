@@ -26,7 +26,7 @@ public struct ZTScrollView<Content: View>: View {
     @State private var offset = ZTScrollPreferenceKey.defaultValue
     @Binding private var offsetBinding: CGFloat
     
-    init(
+    public init(
         axes: Axis.Set = .vertical,
         showsIndicators: Bool = true,
         contentOffset: Binding<CGFloat>? = nil,

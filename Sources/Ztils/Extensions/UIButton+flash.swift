@@ -8,7 +8,7 @@
 #if canImport(UIKit)
 import UIKit
 
-extension UIButton {
+public extension UIButton {
     func flash() {
         alpha = 0.1
         

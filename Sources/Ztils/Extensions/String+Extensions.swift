@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension String {
+public extension String {
     var solelyContainsWhitespace: Bool { self.allSatisfy({ $0.isWhitespace }) }
     var withFirstLetterCapitalized: String { self.prefix(1).capitalized + self.dropFirst(1) }
 }

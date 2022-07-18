@@ -7,6 +7,6 @@
 
 import Foundation
 
-extension Date {
+public extension Date {
     static var weekFromNow: Date { Date().addingTimeInterval(7 * 24 * 60 * 60) }
 }

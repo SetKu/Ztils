@@ -8,7 +8,7 @@
 #if canImport(SwiftUI)
 import SwiftUI
 
-extension Color {
+public extension Color {
     static func random(saturation: Double, brightness: Double) -> Color {
         return Color(hue: Double.random(in: 0...1), saturation: saturation, brightness: brightness)
     }
