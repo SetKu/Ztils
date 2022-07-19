@@ -36,7 +36,7 @@ public struct ZTScrollView<Content: View>: View {
         self.showsIndicators = showsIndicators
         self.content = content
         
-        if let contentOffset {
+        if let contentOffset = contentOffset {
             self._offsetBinding = contentOffset
             return
         }

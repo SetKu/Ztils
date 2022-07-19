@@ -6,6 +6,7 @@
 //
 
 #if canImport(SwiftUI)
+#if canImport(UIKit)
 import SwiftUI
 
 /// A view capable of finding the parent UIWindow for a SwiftUI view.
@@ -27,4 +28,5 @@ public struct ZTHostingWindowFinder: UIViewRepresentable {
     
     public typealias UIViewType = UIView
 }
+#endif
 #endif

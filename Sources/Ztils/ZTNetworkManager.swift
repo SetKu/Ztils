@@ -17,6 +17,7 @@ public class ZTNetworkManager {
     ///   - resourceTimeout: The time to allow for the transfer of a specific server resource before timing out.
     /// - Returns: The decoded JSON in the type specified by the caller.
     /// - Throws: Several errors can be thrown during the process: bad URL errors, bad server responses, decoding errors, etc.
+    @available(iOS 15.0, *)
     public static func decodeJSON<T: Decodable>(
         _ type: T.Type,
         from urlString: String,

@@ -6,6 +6,7 @@
 //
 
 #if canImport(SwiftUI)
+#if canImport(UIKit)
 import SwiftUI
 import UIKit
 
@@ -25,4 +26,5 @@ public extension Color {
         self.init(uiColor: UIColor(light: UIColor(light), dark: UIColor(dark)))
     }
 }
+#endif
 #endif

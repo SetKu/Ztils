@@ -5,7 +5,7 @@
 //  Created by Zachary Morden on 2022-07-11.
 //
 
-#if canImport(SwiftUI) && canImport(PhotosUI)
+#if canImport(SwiftUI) && canImport(PhotosUI) && canImport(UIKit)
 import SwiftUI
 import PhotosUI
 
@@ -15,7 +15,7 @@ public struct ZTImagePicker: UIViewControllerRepresentable {
     @Binding var image: UIImage?
     
     public init(image: Binding<UIImage?>? = nil) {
-        if let image {
+        if let image = image {
             self._image = image
             return
         }
