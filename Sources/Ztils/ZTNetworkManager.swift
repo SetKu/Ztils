@@ -77,13 +77,18 @@ public class ZTNetworkManager {
         return end.timeIntervalSince(start)
     }
     
+    public enum ZTValidationError: Error {
+        case badResponseCode(response: URLResponse)
+    }
+    
     /// Checks that the provided URL response is a valid response code of 200 (OK).
     /// - Parameter response: The `URLResponse` object to validate.
-    /// - Throws: A bad server response error if the provided response had a status code other than 200.
+    /// - Throws: A bad server response error, `ZTValidationError.badResponseCode`, if the provided response had a status code other than 200.
     public static func validate(response: URLResponse) throws {
         let code = (response as? HTTPURLResponse)?.statusCode
+        
         guard code != nil && code == 200 else {
-            throw URLError(.badServerResponse)
+            throw ZTValidationError.badResponseCode(response: response)
         }
     }
 }
