@@ -12,7 +12,7 @@ internal class ZTAction: NSObject, Identifiable {
     internal let id = UUID()
     private let _action: () -> Void
     
-    internal init(_ action: @autoclosure @escaping () -> Void) {
+    internal init(_ action: @escaping () -> Void) {
         self._action = action
     }
     
