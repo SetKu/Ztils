@@ -5,9 +5,7 @@
 //  Created by Zachary Morden on 2022-07-18.
 //
 
-#if canImport(SwiftUI)
 #if canImport(UIKit)
-import SwiftUI
 import UIKit
 
 public extension UIColor {
@@ -19,6 +17,10 @@ public extension UIColor {
         })
     }
 }
+#endif
+
+#if canImport(SwiftUI) && canImport(UIKit)
+import SwiftUI
 
 public extension Color {
     @available(iOS 15.0, *)
@@ -26,5 +28,4 @@ public extension Color {
         self.init(uiColor: UIColor(light: UIColor(light), dark: UIColor(dark)))
     }
 }
-#endif
 #endif
