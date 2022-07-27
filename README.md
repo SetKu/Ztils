@@ -15,3 +15,7 @@ This framework includes quick conveniences for working with often verbose intera
 This framework is not intended for widespread use and is just a collection of utilities that I utilize in projects. I have not created every solution in this collection, and I have done my best to give proper credit where it is due. However, I may have accidentally missed a solution just given the pure quantity of information and sources one uses when developing.
 
 Go nuts! 😀
+
+## Installation
+
+To install, simply add the repository URL as a package URL using the Swift Package Manager for your project. It should then pull down the source code automatically and expose it as a module to your project.
