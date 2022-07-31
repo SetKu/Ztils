@@ -15,8 +15,16 @@ public extension Date {
     }
 
     func weekday(abbreviated: Bool = false) -> String {
+        return self.formatted(by: abbreviated ? "EEE" : "EEEE")
+    }
+    
+    func component(_ component: Calendar.Component) -> Int {
+        Calendar.current.component(component, from: self)
+    }
+    
+    func formatted(by string: String) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = abbreviated ? "EEE" : "EEEE"
+        formatter.dateFormat = string
         return formatter.string(from: self)
     }
 }
