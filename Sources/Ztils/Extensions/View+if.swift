@@ -21,6 +21,14 @@ public extension View {
             self
         }
     }
+    
+    @ViewBuilder func `if`<Content: View, Modifier: ViewModifier>(_ condition: Bool, modifier: Modifier) -> some View {
+        if condition {
+            self.modifier(modifier)
+        } else {
+            self
+        }
+    }
 }
 #endif
 
