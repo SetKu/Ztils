@@ -12,7 +12,7 @@ public extension Color {
     // Solution derived from Stack Overflow blog post.
     // https://stackoverflow.com/questions/1855884/determine-font-color-based-on-background-color
     @available(iOS 14.0, *)
-    static func forText(withBackground color: Color) -> Color {
+    static func forText(withBackground color: Color, threshold: CGFloat = 0.65) -> Color {
         guard let components = color.cgColor?.components else { return Color.primary }
         
         let luminance = (
@@ -22,7 +22,7 @@ public extension Color {
             / 255
         )
         
-        if luminance > 0.5 {
+        if luminance > threshold {
             return Color.black
         }
         
