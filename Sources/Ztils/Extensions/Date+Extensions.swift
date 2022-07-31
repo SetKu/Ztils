@@ -27,4 +27,9 @@ public extension Date {
         formatter.dateFormat = string
         return formatter.string(from: self)
     }
+    
+    @available(iOS 15.0, *)
+    var isInToday: Bool {
+        Calendar.current.isDate(self, inSameDayAs: Date.now)
+    }
 }
