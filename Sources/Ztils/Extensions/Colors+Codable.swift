@@ -60,6 +60,8 @@ public extension Encodable where Self: UIColor {
         try container.encode(darkComponents, forKey: .dark)
     }
 }
+
+extension UIColor: Codable { }
 #endif
 
 #if canImport(AppKit)
@@ -85,4 +87,6 @@ public extension Encodable where Self: NSColor {
         try container.encode(data, forKey: .data)
     }
 }
+
+extension NSCoder: Codable { }
 #endif
