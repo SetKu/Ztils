@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+/// A property wrapper for UserDefaults to make using stored encoded properties easy.
 @propertyWrapper
 public struct ZTStorage<T: Codable> {
     private let defaultValue: T
