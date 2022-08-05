@@ -88,5 +88,5 @@ public extension Encodable where Self: NSColor {
     }
 }
 
-extension NSCoder: Codable { }
+extension NSColor: Codable { }
 #endif
