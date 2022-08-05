@@ -72,11 +72,11 @@ fileprivate enum NSColorCodingKeys: CodingKey {
 }
 
 public extension Decodable where Self: NSColor {
-    init?(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: NSColorCodingKeys.self)
         let data = try container.decode(Data.self, forKey: .data)
         let coder = try NSKeyedUnarchiver(forReadingFrom: data)
-        self.init(coder: coder)
+        self.init(coder: coder)!
     }
 }
 
