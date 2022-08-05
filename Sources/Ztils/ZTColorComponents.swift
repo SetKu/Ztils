@@ -5,15 +5,21 @@
 //  Created by Zachary Morden on 2022-08-01.
 //
 
-#if canImport(UIKit)
 import Foundation
+
+#if canImport(UIKit)
 import UIKit
+#endif
+
+#if canImport(AppKit)
+import AppKit
+#endif
 
 public struct ZTColorComponents: Codable {
-    var r: CGFloat
-    var g: CGFloat
-    var b: CGFloat
-    var a: CGFloat
+    public var r: CGFloat
+    public var g: CGFloat
+    public var b: CGFloat
+    public var a: CGFloat
     
     public init(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
         self.r = r
@@ -22,8 +28,43 @@ public struct ZTColorComponents: Codable {
         self.a = a
     }
     
-    func formColor() -> UIColor {
+    #if canImport(UIKit)
+    public init(_ uiColor: UIColor) {
+        r = 0
+        g = 0
+        b = 0
+        a = 0
+        
+        uiColor.getRed(
+            &r,
+            green: &g,
+            blue: &b,
+            alpha: &a
+        )
+    }
+    
+    public func formUIColor() -> UIColor {
         return UIColor(red: r, green: g, blue: b, alpha: a)
     }
+    #endif
+    
+    #if canImport(AppKit)
+    public init(_ uiColor: NSColor) {
+        r = 0
+        g = 0
+        b = 0
+        a = 0
+        
+        uiColor.getRed(
+            &r,
+            green: &g,
+            blue: &b,
+            alpha: &a
+        )
+    }
+    
+    public func formNSColor() -> NSColor {
+        return NSColor(red: r, green: g, blue: b, alpha: a)
+    }
+    #endif
 }
-#endif

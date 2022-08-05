@@ -13,15 +13,7 @@ import UIKit
 public extension UIColor {
     func components(for traitCollection: UITraitCollection) -> ZTColorComponents {
         let resolved = self.resolvedColor(with: traitCollection)
-        var components = ZTColorComponents(r: 0, g: 0, b: 0, a: 0)
-        
-        resolved.getRed(
-            &components.r,
-            green: &components.g,
-            blue: &components.b,
-            alpha: &components.a
-        )
-        
+        let components = ZTColorComponents(resolved)
         return components
     }
 
@@ -40,8 +32,8 @@ public extension Decodable where Self: UIColor {
         let container = try decoder.container(keyedBy: UIColorCodingKeys.self)
         let lightComponents = try container.decode(ZTColorComponents.self, forKey: .light)
         let darkComponents = try container.decode(ZTColorComponents.self, forKey: .dark)
-        let light = lightComponents.formColor()
-        let dark = darkComponents.formColor()
+        let light = lightComponents.formUIColor()
+        let dark = darkComponents.formUIColor()
         
         self.init(dynamicProvider: {
             $0.userInterfaceStyle == .light
