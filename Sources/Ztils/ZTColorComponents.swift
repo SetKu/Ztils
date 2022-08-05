@@ -43,7 +43,7 @@ public struct ZTColorComponents: Codable {
         )
     }
     
-    public func formUIColor() -> UIColor {
+    public func formColor() -> UIColor {
         return UIColor(red: r, green: g, blue: b, alpha: a)
     }
     #endif
@@ -63,7 +63,7 @@ public struct ZTColorComponents: Codable {
         )
     }
     
-    public func formNSColor() -> NSColor {
+    public func formColor() -> NSColor {
         return NSColor(red: r, green: g, blue: b, alpha: a)
     }
     #endif
