@@ -6,9 +6,7 @@
 //
 
 import Foundation
-
-#if canImport(UIKit)
-import UIKit
+import SwiftUI
 
 @propertyWrapper
 public struct ZTStorage<T: Codable> {
@@ -52,4 +50,3 @@ public struct ZTStorage<T: Codable> {
         self.suiteName = suiteName
     }
 }
-#endif
