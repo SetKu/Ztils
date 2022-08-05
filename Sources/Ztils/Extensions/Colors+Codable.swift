@@ -32,8 +32,8 @@ public extension Decodable where Self: UIColor {
         let container = try decoder.container(keyedBy: UIColorCodingKeys.self)
         let lightComponents = try container.decode(ZTColorComponents.self, forKey: .light)
         let darkComponents = try container.decode(ZTColorComponents.self, forKey: .dark)
-        let light = lightComponents.formUIColor()
-        let dark = darkComponents.formUIColor()
+        let light = lightComponents.formColor()
+        let dark = darkComponents.formColor()
         
         self.init(dynamicProvider: {
             $0.userInterfaceStyle == .light
