@@ -13,8 +13,11 @@ import PhotosUI
 @available(iOS 14.0, *)
 public struct ZTImagePicker: UIViewControllerRepresentable {
     @Binding var image: UIImage?
+    let useCamera: Bool
     
-    public init(image: Binding<UIImage?>? = nil) {
+    public init(image: Binding<UIImage?>? = nil, useCamera: Bool) {
+        self.useCamera = useCamera
+        
         if let image = image {
             self._image = image
             return
@@ -23,12 +26,21 @@ public struct ZTImagePicker: UIViewControllerRepresentable {
         self._image = .constant(nil)
     }
     
-    public func makeUIViewController(context: Context) -> some UIViewController {
+    public func makeUIViewController(context: Context) -> UIViewController {
+        if useCamera {
+            let controller = UIImagePickerController()
+            controller.sourceType = .camera
+            controller.cameraCaptureMode = .photo
+            controller.delegate = context.coordinator
+            return controller
+        }
+        
         var config = PHPickerConfiguration()
         config.selectionLimit = 1
         config.filter = .images
         let controller = PHPickerViewController(configuration: config)
         controller.delegate = context.coordinator
+        
         return controller
     }
     
@@ -38,15 +50,28 @@ public struct ZTImagePicker: UIViewControllerRepresentable {
         Coordinator(self)
     }
     
-    final public class Coordinator: NSObject, PHPickerViewControllerDelegate {
+    final public class Coordinator: NSObject, PHPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
         let parent: ZTImagePicker
         
-        init(_ parent: ZTImagePicker) {
+        public init(_ parent: ZTImagePicker) {
             self.parent = parent
         }
         
+        public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            defer { picker.dismiss(animated: true) }
+            
+            if let image = info[.editedImage] as? UIImage {
+                self.parent.image = image
+                return
+            }
+            
+            if let image = info[.originalImage] as? UIImage {
+                self.parent.image = image
+            }
+        }
+        
         public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            picker.dismiss(animated: true)
+            defer { picker.dismiss(animated: true) }
             
             guard let provider = results.first?.itemProvider else { return }
             
@@ -67,7 +92,7 @@ public struct ZTImagePicker: UIViewControllerRepresentable {
 @available(iOS 14.0, *)
 struct ZTImagePicker_Previews: PreviewProvider {
     static var previews: some View {
-        ZTImagePicker(image: .constant(nil))
+        ZTImagePicker(image: .constant(nil), useCamera: false)
     }
 }
 #endif
